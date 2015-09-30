@@ -101,6 +101,12 @@
 			color: #202020;
 			text-align: center;
       }
+	  
+	  /* homepage */
+	body.index h2, body.index h2 a {
+		font-size: 2rem;
+		line-height: 2.5rem;
+	}
 		a, a:visited {
 			color: #202020;
 			text-decoration: none;
@@ -350,7 +356,7 @@
 	
   </head>
 
-  <body>
+  <body expr:class='data:blog.pageType'>
 
   <b:if cond='data:blog.pageType == &quot;index&quot;'>
     <div itemscope='itemscope' itemtype='http://schema.org/Blog' style='display: none;'>
@@ -404,8 +410,10 @@
 						<!-- END STATUS MESSAGE -->
 						
 						<!-- POSTS LOOP -->
-						<b:loop values='data:posts' var='post'>
-							<div class='post-outer'>
+						
+
+						<b:loop values='data:posts' var='post'>							
+								<div class='post-outer'>
 								<!-- BEGIN POST DATA -->
 								<div class='post' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
 									<b:if cond='data:post.firstImageUrl'>
@@ -435,99 +443,32 @@
 									</b:if>
 									<!-- END POSTNAME -->
 									
+									
 									<b:if cond='data:blog.metaDescription == &quot;&quot;'>
 										<!-- HAS NO METADESCRIPTION -->
 									  <!-- Then use the post body as the schema.org description,
 										  for good G+/FB snippeting. -->
 									  <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='description articleBody'>
 										<data:post.body/>
+										
 										<div style='clear: both;'/> <!-- clear for photos floats -->
 									  </div>
 									<b:else/>
 										<!-- HAS METADESCRIPTION -->
+										<!-- POST BODY -->
 									  <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
-										<data:post.body/>
+										<!--<data:post.body/>-->
+										
+										<img expr:src='data:post.firstImageUrl' />
 										<div style='clear: both;'/> <!-- clear for photos floats -->
 									  </div>
 									</b:if>
 									
-									<div class='post-info clearfix'>
-										<!-- TIMESTAMP -->
-										<div class='timestamp'>
-												<!-- Timestamp -->
-												<span class='post-timestamp'>												
-													<b:if cond='data:top.showTimestamp'>
-													  <!--<data:top.timestampLabel/>-->
-														<b:if cond='data:post.url'>
-														  <meta expr:content='data:post.canonicalUrl' itemprop='url'/>
-														  <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'>
-															<abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'>
-																<data:post.timestamp/>
-															</abbr>
-														  </a>
-														</b:if>
-													</b:if>
-												</span> 
-												<!-- Labels -->
-												
-												<span class='post-labels'>
-													<b:if cond='data:post.labels'>			
-														<!--<data:postLabelsLabel/>-->
-														<b:loop values='data:post.labels' var='label'>
-															<!--
-																( <a expr:href='data:label.url' rel='tag'><data:label.name/></a><b:if cond='data:label.isLast != &quot;true&quot;'>,</b:if> ) 
-															-->
-														</b:loop>
-													</b:if>
-												</span>
-												
-												<!-- QuickEdit -->
-												<span class='post-icons'>
-													<!-- QUICKEDIT -->
-													<b:if cond='data:post.editUrl'>
-														<span expr:class='&quot;item-control &quot; + data:post.adminClass'>
-														  <a expr:href='data:post.editUrl' expr:title='data:top.editPostMsg'>
-															<img alt='' class='icon-action' height='18' src='http://img2.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
-														  </a>
-														</span>
-													  </b:if>
-													<!-- END QUICKEDIT -->
-												</span> 
-											</div>	
-										<!-- END TIMESTAMP -->
-										
-										<div class='share'>
-											<div class='share-subtitle'>Share:</div>
-											<!-- Twitter --><a expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url + &quot;&amp;text=&quot; + data:post.title' target='_blank'><img src='http://i.imgur.com/rQ4hkTq.png' width='24'/></a>
-											<!-- Facebook--><a expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' target='_blank'><img src='http://i.imgur.com/K98q9r6.png' width='24'/></a>
-											<!-- Reddit --><a expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' target='_blank'><img src='http://i.imgur.com/pST3fYx.png' width='24'/></a>
-											<!-- Google+ --><a expr:href='&quot;https://plus.google.com/share?url=&quot; + data:post.url' target='_blank'><img src='http://i.imgur.com/Y7IVTud.png' width='24'/></a>
-										</div>
-										
-									</div>
-									
-									<!-- BEGIN PAGER -->
-									<!--	<div class='blog-pager' id='blog-pager'>
-											<b:if cond='data:newerPageUrl'>
-												<span id='blog-pager-newer-link'>
-												<a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'>&lt; Next Post</a>
-												</span>
-											</b:if>
-											<b:if cond='data:olderPageUrl'>
-												<span id='blog-pager-older-link'>
-												<a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'>Prev Post &gt;</a>
-												</span>
-											</b:if>
-										</div>
-									-->
-										<!-- END PAGER -->
 									
 									<!-- END POSTS -->
 								</div>
 								<!-- END POST DATA -->
-								
-								<b:include data='post' name='comments'/>
-								
+																
 								<!-- END BLOG POSTS -->
 							</div>
 						</b:loop>
