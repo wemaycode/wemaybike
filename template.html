@@ -104,8 +104,9 @@
 	  
 	  /* homepage */
 	body.index h2, body.index h2 a {
-		font-size: 2rem;
-		line-height: 2.5rem;
+		font-size: 1.5rem;
+		line-height: 1.75rem;
+		margin-top: 10px;
 	}
 		a, a:visited {
 			color: #202020;
@@ -427,8 +428,8 @@
 						<!-- POSTS LOOP -->
 						
 
-						<b:loop values='data:posts' var='post'>							
-								<div class='post-outer'>
+						<b:loop values='data:posts' var='post'>														
+							<div class='post-outer'>
 								<!-- BEGIN POST DATA -->
 								<div class='post' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
 									<b:if cond='data:post.firstImageUrl'>
@@ -459,24 +460,40 @@
 									<!-- END POSTNAME -->
 									
 									
+									<!-- POST BODY -->
+									
 									<b:if cond='data:blog.metaDescription == &quot;&quot;'>
-										<!-- HAS NO METADESCRIPTION -->
-									  <!-- Then use the post body as the schema.org description,
-										  for good G+/FB snippeting. -->
-									  <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='description articleBody'>
-										<data:post.body/>
-										
-										<div style='clear: both;'/> <!-- clear for photos floats -->
-									  </div>
+										<!-- HAS NO METADESCRIPTION --><!-- Then use the post body as the schema.org description, for good G+/FB snippeting. -->
+										  <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='description articleBody'>
+											<data:post.body/>										
+											<div style='clear: both;'/> <!-- clear for photos floats -->
+										  </div>
+									  
 									<b:else/>
+																			
 										<!-- HAS METADESCRIPTION -->
-										<!-- POST BODY -->
-									  <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
-										<!--<data:post.body/>-->
 										
-										<img expr:src='data:post.firstImageUrl' />
-										<div style='clear: both;'/> <!-- clear for photos floats -->
-									  </div>
+										<b:if cond='data:blog.pageType == &quot;index&quot;'>																			
+										<!-- Display first image if index -->
+											  <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>	
+													<a expr:href='data:post.url'>
+														<img expr:src='data:post.firstImageUrl'/>
+													</a>
+													<div style='clear: both;'/> <!-- clear for photos floats -->
+													<!-- post description -->
+													<b:if cond='data:post.metaDescription'>
+														<div><data:post.metaDescription/></div>
+													</b:if>
+	  
+											  </div>
+										<b:else/>
+										<!-- Display content if not index -->
+											<div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
+												<data:post.body/>
+											</div>
+										  
+										</b:if>
+										
 									</b:if>
 									
 									
