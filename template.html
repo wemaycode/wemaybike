@@ -688,6 +688,7 @@ body.mobile  {
       ]]>
     </b:template-skin>
     <b:include data='blog' name='google-analytics'/>
+
   </head>
 
   <body expr:class='&quot;loading&quot; + data:blog.mobileClass'>
@@ -1489,7 +1490,7 @@ head.appendChild(script);
   </div>
   <div class='clear'/>
 </b:includable>
-<b:includable id='post' var='post'>
+              <b:includable id='post' var='post'>
   <div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
     <b:if cond='data:post.firstImageUrl'>
       <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
